@@ -1,0 +1,18 @@
+type Query {
+    product (
+        id: String @doc(description: "Product ID."),
+    ): HackethonProduct
+    @resolver(class: "Hackathon\\CatalogGraphQl\\Model\\Resolver\\Product") @doc(description: "The product query return product")
+}
+
+type HackethonProduct implements ProductInterface @doc(description: "Custom product") {
+    attributes: [AttributeInterface] @doc(description: "Attributes") @resolver(class: "Hackathon\\CatalogGraphQl\\Model\\Resolver\\Attribute")
+}
+
+interface AttributeInterface @typeResolver(class: "Hackathon\\CatalogGraphQl\\Model\\AttributeInterfaceTypeResolver") @doc(description: "AttributesInterface ") {
+    label: String @doc(description: "Attribute label")
+    value: String @doc(description: "Attribute value")
+}
+
+type Attribute implements AttributeInterface @doc(description: "Attribute") {
+}
